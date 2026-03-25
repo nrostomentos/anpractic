@@ -2,247 +2,373 @@
 <html lang="ru">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Мопсы захватят мир</title>
-	<style>
-		/* CSS переменные для светлой темы */
-		:root {
-			--bg-color: #ffffff;
-			--text-color: #333333;
-			--header-bg: #f8f9fa;
-			--card-bg: #ffffff;
-			--border-color: #dee2e6;
-			--shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-			--button-bg: #007bff;
-			--button-text: #ffffff;
-		}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DANGANRONPA | Мопсы захватят мир</title>
+    <style>
+        /* --- ЦВЕТА DANGANRONPA --- */
+        :root {
+            --dr-pink: #e6007a;
+            --dr-red: #b52e2e;
+            --dr-black: #1a1a1a;
+            --dr-white: #f8f8f8;
+            --dr-gray: #2e2e2e;
+            --dr-shadow: rgba(0, 0, 0, 0.2);
+        }
 
-		/* Темная тема */
-		[data-theme="dark"] {
-			--bg-color: #1a1a1a;
-			--text-color: #e0e0e0;
-			--header-bg: #2d2d2d;
-			--card-bg: #2d2d2d;
-			--border-color: #404040;
-			--shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-			--button-bg: #0056b3;
-			--button-text: #ffffff;
-		}
+        /* Светлая тема (Надежда) */
+        [data-theme="light"] {
+            --bg-color: var(--dr-white);
+            --text-color: var(--dr-black);
+            --card-bg: rgba(255, 255, 255, 0.92);
+            --border-color: var(--dr-pink);
+            --shadow-color: var(--dr-black);
+            --btn-bg: var(--dr-pink);
+            --btn-hover-bg: #ff1a8c;
+            --header-bg: rgba(248, 248, 248, 0.95);
+            --secondary-text: #4a4a4a;
+            --badge-bg: #f0f0f0;
+        }
 
-		/* Базовые стили */
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-			transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-		}
+        /* Темная тема (Отчаяние) */
+        [data-theme="dark"] {
+            --bg-color: #0a0a0a;
+            --text-color: #e0e0e0;
+            --card-bg: rgba(20, 20, 20, 0.92);
+            --border-color: var(--dr-red);
+            --shadow-color: #000000;
+            --btn-bg: var(--dr-red);
+            --btn-hover-bg: #ff4d4d;
+            --header-bg: rgba(10, 10, 10, 0.95);
+            --secondary-text: #b0b0b0;
+            --badge-bg: #1e1e1e;
+        }
 
-		body {
-			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-			background-color: var(--bg-color);
-			color: var(--text-color);
-			line-height: 1.6;
-		}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+        }
 
-		.container {
-			max-width: 1200px;
-			margin: 0 auto;
-			padding: 0 20px;
-		}
+        body {
+            font-family: 'Segoe UI', 'Poppins', 'Impact', 'Arial Black', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            /* Текстура как в игре */
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(230, 0, 122, 0.02) 30px, rgba(230, 0, 122, 0.02) 60px);
+        }
 
-		/* Шапка */
-		header {
-			background-color: var(--header-bg);
-			padding: 1rem 0;
-			box-shadow: var(--shadow);
-			position: sticky;
-			top: 0;
-			z-index: 100;
-		}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-		.header-content {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-		}
+        /* Шапка в стиле Danganronpa */
+        header {
+            background-color: var(--header-bg);
+            padding: 1rem 0;
+            box-shadow: 0 4px 0 var(--shadow-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+            border-bottom: 2px solid var(--border-color);
+        }
 
-		.logo {
-			font-size: 1.5rem;
-			font-weight: bold;
-		}
-		
-		.theme-switcher {
-			display: flex;
-			align-items: center;
-			gap: 10px;
-			cursor: pointer;
-			padding: 8px 16px;
-			border-radius: 20px;
-			background-color: var(--card-bg);
-			border: 1px solid var(--border-color);
-		}
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-		.theme-switcher i {
-			font-size: 1.2rem;
-		}
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--border-color);
+            text-shadow: 2px 2px 0 var(--shadow-color);
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            letter-spacing: 1px;
+        }
 
-		/* Основной контент */
-		main {
-			padding: 2rem 0;
-		}
+        /* Кнопка переключения темы в стиле Монокумы */
+        .theme-switcher {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 8px 20px;
+            border-radius: 40px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            box-shadow: 3px 3px 0 var(--shadow-color);
+            transition: all 0.1s linear;
+            font-weight: bold;
+        }
 
-		.hero {
-			text-align: center;
-			padding: 3rem 0;
-		}
+        .theme-switcher:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0 var(--shadow-color);
+        }
 
-		.hero h1 {
-			font-size: 2.5rem;
-			margin-bottom: 1rem;
-		}
+        .theme-switcher i {
+            font-size: 1.2rem;
+        }
 
-		.hero p {
-			font-size: 1.2rem;
-			max-width: 600px;
-			margin: 0 auto 2rem;
-		}
+        /* Основной контент */
+        main {
+            padding: 2rem 0;
+        }
 
-		/* Карточки */
-		.cards {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-			gap: 2rem;
-			margin-top: 2rem;
-		}
+        /* Герой-секция */
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+            border: 3px solid var(--border-color);
+            border-radius: 32px;
+            background: var(--card-bg);
+            box-shadow: 8px 8px 0 var(--shadow-color);
+            margin-bottom: 2rem;
+        }
 
-		.card {
-			background-color: var(--card-bg);
-			border: 1px solid var(--border-color);
-			border-radius: 8px;
-			padding: 1.5rem;
-			box-shadow: var(--shadow);
-		}
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--border-color);
+            text-shadow: 3px 3px 0 var(--shadow-color);
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            letter-spacing: 2px;
+        }
 
-		.card h3 {
-			margin-bottom: 1rem;
-			color: var(--text-color);
-		}
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: var(--secondary-text);
+        }
 
-		.card p {
-			color: var(--text-color);
-			opacity: 0.8;
-		}
+        /* Карточки в стиле "Улик" */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
 
-		/* Кнопка */
-		.btn {
-			background-color: var(--button-bg);
-			color: var(--button-text);
-			padding: 12px 24px;
-			border: none;
-			border-radius: 5px;
-			cursor: pointer;
-			font-size: 1rem;
-			text-decoration: none;
-			display: inline-block;
-		}
+        .card {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 24px;
+            padding: 1.8rem;
+            box-shadow: 6px 6px 0 var(--shadow-color);
+            transition: all 0.2s ease;
+            backdrop-filter: blur(2px);
+        }
 
-		.btn:hover {
-			opacity: 0.9;
-		}
+        .card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 10px 10px 0 var(--shadow-color);
+        }
 
-		/* Подвал */
-		footer {
-			background-color: var(--header-bg);
-			padding: 2rem 0;
-			margin-top: 3rem;
-			text-align: center;
-		}
-	</style>
+        .card h3 {
+            margin-bottom: 1.2rem;
+            color: var(--border-color);
+            font-size: 1.6rem;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            letter-spacing: 1px;
+            border-left: 4px solid var(--border-color);
+            padding-left: 12px;
+        }
+
+        .card p {
+            color: var(--text-color);
+            opacity: 0.9;
+            line-height: 1.7;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Кнопки в стиле Danganronpa */
+        .btn {
+            background-color: var(--btn-bg);
+            color: white;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+            box-shadow: 4px 4px 0 var(--shadow-color);
+            transition: all 0.1s linear;
+            font-family: monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background-color: var(--btn-hover-bg);
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--shadow-color);
+        }
+
+        .btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 var(--shadow-color);
+        }
+
+        /* Подвал */
+        footer {
+            background-color: var(--header-bg);
+            padding: 2rem 0;
+            margin-top: 3rem;
+            text-align: center;
+            border-top: 2px solid var(--border-color);
+            box-shadow: 0 -4px 0 var(--shadow-color);
+        }
+
+        footer .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        footer p {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Дополнительные детали */
+        .hero .btn {
+            font-size: 1.1rem;
+            padding: 14px 36px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .card h3 {
+                font-size: 1.3rem;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
+            }
+            
+            .theme-switcher {
+                padding: 5px 12px;
+                font-size: 0.8rem;
+            }
+            
+            .card {
+                padding: 1.2rem;
+            }
+        }
+        
+        /* Стиль для ссылок внутри карточек, если появятся */
+        a {
+            text-decoration: none;
+        }
+        
+        /* Эффект "кровавых" брызг на фоне (декор) */
+        body::before {
+            content: "⚠";
+            font-size: 180px;
+            opacity: 0.02;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            pointer-events: none;
+            font-family: monospace;
+            z-index: 0;
+        }
+    </style>
 </head>
 
-<body>
-	<header>
-		<div class="container">
-			<div class="header-content">
-				<div class="logo">Мопсы</div>
-				<div class="theme-switcher" id="themeToggle">
-					<span id="themeIcon">🌙</span>
-					<span id="themeText">Темная тема</span>
-				</div>
-			</div>
-		</div>
-	</header>
+<body data-theme="light">
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">🎲 МОПСЫ</div>
+                <div class="theme-switcher" id="themeToggle">
+                    <span id="themeIcon">🌙</span>
+                    <span id="themeText">Темная тема</span>
+                </div>
+            </div>
+        </div>
+    </header>
 
-	<main>
-		<div class="container">
-			<section class="hero">
-				<h1>Добро пожаловать:3</h1>
-				<a href="https://t.me/pugru" class="btn">мопсы!!</a>
-			</section>
+    <main>
+        <div class="container">
+            <section class="hero">
+                <h1>Добро пожаловать:3</h1>
+                <a href="https://t.me/pugru" class="btn">🐾 МОПСЫ!! 🐾</a>
+            </section>
 
-			<section class="cards">
-				<div class="card">
-					<h3>История</h3>
-					<p>Мопсы - древняя порода, зародившаяся в Китае около 2000 лет назад!
-			<br>Они были любимцами китайских императоров и жили в
-					роскошных условиях.
-		<br>В Европу мопсы попали в XVI веке с голландскими торговцами и быстро стали популярны среди
-					европейской аристократии.
-		<br>Особую известность порода получила, когда мопс спас жизнь голландского принца Вильгельма
-					Тишайшего, предупредив о нападении врагов.</p>
-				</div>
-				<div class="card">
-						<h3>Особенности</h3>
-						<p>Мопсы известны как жизнерадостные, дружелюбные и общительные компаньоны. Они ласковы, преданы хозяевам, хорошо
-							уживаются
-							с детьми и другими животными. Несмотря на небольшие размеры, обладают твердым характером и иногда бывают упрямы.
-						</p>
-						<br>
-						<p>Мопсы идеально подходят для содержания в квартире и являются прекрасными собаками-компаньонами для людей разного
-							возраста и образа жизни.</p>
-				</div>
-				<div class="card">
-				<h3>Внешность</h3>
-				<p>Размер: Небольшие, компактные собаки</p>
-				<br>
-				<p>Вес: 6-8 кг</p>
-				<br>
-				<p>Шерсть: Короткая, гладкая, блестящая</p>
-				<br>
-				<p>Окрас: Серебристый, абрикосовый, палевый или черный с характерной темной "маской" на морде</p>
-				<br>
-				<p>Морда: Плоская с большими выразительными глазами</p>
-				<br>
-				<p>Хвост: Плотно закрученный колечком</p>
-				<br>
-				<p>Складки: Характерные складки кожи на лбу, образующие загадочный узор</p>
-				</div>
-      
-			</head>
-			</section>
-		</div>
-	</main>
+            <section class="cards">
+                <div class="card">
+                    <h3>📜 ИСТОРИЯ</h3>
+                    <p>Мопсы — древняя порода, зародившаяся в Китае около 2000 лет назад! Они были любимцами китайских императоров и жили в роскошных условиях.</p>
+                    <p>В Европу мопсы попали в XVI веке с голландскими торговцами и быстро стали популярны среди европейской аристократии.</p>
+                    <p>⭐ Особую известность порода получила, когда мопс спас жизнь голландского принца Вильгельма Тишайшего, предупредив о нападении врагов.</p>
+                </div>
+                <div class="card">
+                    <h3>✨ ОСОБЕННОСТИ</h3>
+                    <p>Мопсы известны как жизнерадостные, дружелюбные и общительные компаньоны. Они ласковы, преданы хозяевам, хорошо уживаются с детьми и другими животными.</p>
+                    <p>Несмотря на небольшие размеры, обладают твердым характером и иногда бывают упрямы.</p>
+                    <p>🏠 Мопсы идеально подходят для содержания в квартире и являются прекрасными собаками-компаньонами для людей разного возраста и образа жизни.</p>
+                </div>
+                <div class="card">
+                    <h3>🐕 ВНЕШНОСТЬ</h3>
+                    <p><strong>Размер:</strong> Небольшие, компактные собаки</p>
+                    <p><strong>Вес:</strong> 6-8 кг</p>
+                    <p><strong>Шерсть:</strong> Короткая, гладкая, блестящая</p>
+                    <p><strong>Окрас:</strong> Серебристый, абрикосовый, палевый или черный с характерной темной "маской" на морде</p>
+                    <p><strong>Морда:</strong> Плоская с большими выразительными глазами</p>
+                    <p><strong>Хвост:</strong> Плотно закрученный колечком</p>
+                    <p><strong>Складки:</strong> Характерные складки кожи на лбу, образующие загадочный узор</p>
+                </div>
+            </section>
+        </div>
+    </main>
 
-	<footer>
-		<div class="container">
-			<p>&copy; 2025
-	 	<a href="https://t.me/swn_f" class="btn">тгшка</a>
-		<a href="https://www.figma.com/design/q8iMEWbGkZe0njMmD8Az7a/Untitled?node-id=0-1&p=f&t=gWdWsCclVL9acZ7K-0" class="btn">фигма черновик</a>
-      </p>
-		</div>
-	</footer>
+    <footer>
+        <div class="container">
+            <p>
+                <a href="https://t.me/swn_f" class="btn">📱 ТГШКА</a>
+                <a href="https://www.figma.com/design/q8iMEWbGkZe0njMmD8Az7a/Untitled?node-id=0-1&p=f&t=gWdWsCclVL9acZ7K-0" class="btn">🎨 ФИГМА ЧЕРНОВИК</a>
+            </p>
+        </div>
+        <div style="text-align: center; margin-top: 1rem; font-size: 0.7rem; opacity: 0.5;">
+            ⚡ 希望ヶ峰学園 | SORE WA CHIGAU YO! ⚡
+        </div>
+    </footer>
 
-	<script>
+    <script>
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
         const themeText = document.getElementById('themeText');
         const body = document.body;
 
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
+        const savedTheme = localStorage.getItem('drThemePugs');
+        if (savedTheme === 'dark' || savedTheme === 'light') {
             body.setAttribute('data-theme', savedTheme);
             updateThemeElements(savedTheme);
+        } else {
+            // По умолчанию светлая тема (Надежда)
+            body.setAttribute('data-theme', 'light');
+            updateThemeElements('light');
         }
 
         themeToggle.addEventListener('click', () => {
@@ -250,20 +376,20 @@
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             
             body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+            localStorage.setItem('drThemePugs', newTheme);
             updateThemeElements(newTheme);
         });
 
         function updateThemeElements(theme) {
             if (theme === 'dark') {
                 themeIcon.textContent = '☀️';
-                themeText.textContent = 'cветлая';
+                themeText.textContent = 'СВЕТЛАЯ';
             } else {
                 themeIcon.textContent = '🌙';
-                themeText.textContent = 'темная';
+                themeText.textContent = 'ТЕМНАЯ';
             }
         }
-	</script>
+    </script>
 </body>
 
 </html>
